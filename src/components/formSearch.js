@@ -1,6 +1,11 @@
 import React from "react";
 
-class Form extends React.Component {
+class FormSearch extends React.Component {
+
+    constructor(props){
+        super(props);
+    }
+
     render() {
         return (
             <div>
@@ -13,4 +18,4 @@ class Form extends React.Component {
     }
 }
 
-export default Form;
+export default FormSearch;
