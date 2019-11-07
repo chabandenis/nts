@@ -51,7 +51,7 @@ class App extends React.Component {
                 <Info/>
                 <FormSearch weatherMethod={this.listOfNotes}/>
                 <AddNote noteAdd={this.addNote}/>
-                <Results notes={this.state.notes} deleteNote={this.deleteNote}/>
+                <Results notes={this.state.notes} />
                 <Edit/>
                 <Create/>
                 <Search/>
@@ -60,5 +60,5 @@ class App extends React.Component {
     }
 
 }
-
+//deleteNote={this.deleteNote
 export default App;

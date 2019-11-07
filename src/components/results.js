@@ -10,23 +10,23 @@ class Results extends React.Component {
     // удалить заметку
     // строка для тестирования:
     // fetch('http://127.0.0.1:8080/message/1', {method: 'DELETE', hearders: {'Content-Type': 'application/json'}}).then(result=>console.log(result))
-    deleteNote() {
-        // console.log("delete " + this);
-        //e.preventDefault();
-        /*
-                const api_url = await fetch(`http://127.0.0.1:8080/message/1`,
+    deleteNote = async (e, id_note) => {
+        //  deleteNote(e) {
+        // e.preventDefault();
+        console.log("delete ", this, e, id_note);
+
+                const api_url = await fetch("http://127.0.0.1:8080/message/"+ id_note,
                     {
                         method: 'DELETE', cache: 'no-cache',
                         headers: {'Content-Type': 'application/json'}
                     });
 
-                const data = await api_url.json();
-                console.log("after delete" + data);
-
-         */
+//                const data =  api_url.json();
+  //              console.log("after delete" + data);
     }
 
 //onClick={this.props.deleteNote()}
+
 
     render() {
 
@@ -35,23 +35,62 @@ class Results extends React.Component {
         let notes = null;
         //  <button>Редактировать</button>
         if (this.props.notes) {
+            let props = this.props;
+            let deleteNote = this.deleteNote;
+
             notes = this.props.notes.map(function (item, index) {
+//                notes = (props) => this.props.notes.map(function (item, index) {
                 return (
                     <div key={item.idNote}> {/* используем id в качестве ключа */}
 
-                        <form>
+                        <div>
                             <p className="begin__note">======================================================================================================================</p>
                             <p className="id__note">ID сообщения: {item.idNote}</p>
                             <p className="data__note">Дата сообщения: {item.dateNote}</p>
                             <p className="urgency__note">Важность: {item.urgencyNote}</p>
                             <p className="text__note">Текст сообщения: {item.textNote}</p>
 
-                            <button>
+
+                            <button onClick={(e) => deleteNote(e, item.idNote)}>
                                 Удалить
                             </button>
+                            <button onClick={(e) => deleteNote(e, index)}>
+                                Изменить
+                            </button>
 
-                        </form>
+                        </div>
+                        /*
 
+                                            </div>
+                                        )
+                                    })
+                                } else {
+                                    notes = <div>Заметки отсутствуют</div>;
+                                }
+
+                                return (
+                                    <div>
+                                        {notes}
+                                    </div>
+                                );
+                            }
+                        }
+
+                        //                <button onClick={this.deleteNote}>привет </button>
+                        //{notes}
+                        /*                <form>
+                                            <input>
+                                                type="test"
+                                                placeholder = "E-mail"
+
+
+                                            </input>
+                                        </form>
+                                        */
+
+                        export default Results;
+
+/*
                         <form className="text__note">
                             <input style={{width: 50}} type="text" name="city" value={item.idNote}
                                    placeholder="ID сообщения"/>
@@ -63,31 +102,4 @@ class Results extends React.Component {
                                    placeholder="Текст сообщения"/>
                             <button>Применить</button>
                         </form>
-                    </div>
-                )
-            })
-        } else {
-            notes = <div>Заметки отсутствуют</div>;
-        }
-
-        return (
-            <div>
-
-
-            </div>
-        );
-    }
-}
-
-//{notes}
-/*                <form>
-                    <input>
-                        type="test"
-                        placeholder = "E-mail"
-
-
-                    </input>
-                </form>
-                */
-
-export default Results;
+                        */
