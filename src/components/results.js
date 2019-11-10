@@ -5,29 +5,10 @@ class Results extends React.Component {
 
     constructor(props) {
         super(props);
-        this.deleteNote = this.deleteNote.bind(this)
-    }
-
-    // удалить заметку
-    // строка для тестирования:
-    // fetch('http://127.0.0.1:8080/message/1', {method: 'DELETE', hearders: {'Content-Type': 'application/json'}}).then(result=>console.log(result))
-    deleteNote = async (e, id_note) => {
-        //  deleteNote(e) {
-        // e.preventDefault();
-        console.log("delete ", this, e, id_note);
-
-        const api_url = await fetch("http://127.0.0.1:8080/message/" + id_note,
-            {
-                method: 'DELETE', cache: 'no-cache',
-                headers: {'Content-Type': 'application/json'}
-            });
-
-//                const data =  api_url.json();
-        //              console.log("after delete" + data);
+        //this.deleteNote = this.deleteNote.bind(this)
     }
 
 //onClick={this.props.deleteNote()}
-
 
     render() {
 
@@ -48,7 +29,7 @@ class Results extends React.Component {
         //  <button>Редактировать</button>
         if (this.props.notes) {
             let props = this.props;
-            let deleteNote = this.deleteNote;
+            let deleteNote = this.props.deleteNote;
 
             notes = this.props.notes.map(function (item, index) {
 //                notes = (props) => this.props.notes.map(function (item, index) {
@@ -62,9 +43,9 @@ class Results extends React.Component {
                             <p>Важность: {item.urgencyNote}</p>
                             <p>Текст сообщения: {item.textNote}</p>
 
-                            <input style={myStyle} type="text" name="city" value={item.textNote}
+                            {/*                            <input style={myStyle} type="text" name="city" value={item.textNote}
                                    placeholder="Текст сообщения"/>
-
+*/}
                             <button onClick={(e) => deleteNote(e, item.idNote)}>
                                 Удалить
                             </button>
@@ -73,19 +54,34 @@ class Results extends React.Component {
                             </button>
 
                         </div>
+                    </div>
+                )
+            })
+        } else {
+            notes = <div>Заметкт отсутствуют</div>;
+        }
 
-                        export default Results;
+        return (
+            <div>
+                {notes}
+            </div>
+        );
+    }
+}
+
+export default Results;
+
 
 /*
-                        <form className="text__note">
-                            <input style={{width: 50}} type="text" name="city" value={item.idNote}
-                                   placeholder="ID сообщения"/>
-                            <input style={{width: 50}} type="text" name="city" value={item.dateNote}
-                                   placeholder="Дата сообщения"/>
-                            <input style={{width: 50}} type="text" name="city" value={item.urgencyNote}
-                                   placeholder="Важность"/>
-                            <input style={{width: 500}} type="text" name="city" value={item.textNote}
-                                   placeholder="Текст сообщения"/>
-                            <button>Применить</button>
-                        </form>
-                        */
+<form className="text__note">
+    <input style={{width: 50}} type="text" name="city" value={item.idNote}
+           placeholder="ID сообщения"/>
+    <input style={{width: 50}} type="text" name="city" value={item.dateNote}
+           placeholder="Дата сообщения"/>
+    <input style={{width: 50}} type="text" name="city" value={item.urgencyNote}
+           placeholder="Важность"/>
+    <input style={{width: 500}} type="text" name="city" value={item.textNote}
+           placeholder="Текст сообщения"/>
+    <button>Применить</button>
+</form>
+*/
