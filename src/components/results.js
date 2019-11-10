@@ -49,7 +49,7 @@ class Results extends React.Component {
                             <button onClick={(e) => deleteNote(e, item.idNote)}>
                                 Удалить
                             </button>
-                            <button onClick={(e) => deleteNote(e, index)}>
+                            <button onClick={(e) => deleteNote(e, item.idNote)}>
                                 Изменить
                             </button>
 

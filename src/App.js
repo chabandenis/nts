@@ -16,10 +16,10 @@ class App extends React.Component {
     }
 
     // modify
-/*    modify = (e) =>{
-        this.setState({testValue:"wwwww""});
-    }
-*/
+    /*    modify = (e) =>{
+            this.setState({testValue:"wwwww""});
+        }
+    */
     // список заметок
     listOfNotes = async (e) => {
         e.preventDefault();
@@ -27,7 +27,9 @@ class App extends React.Component {
         const api_url = await fetch(`http://127.0.0.1:8080/message`, {cache: 'no-cache'});
         const data = await api_url.json();
 
-        data.sort((a,b) => {return b.idNote - a.idNote});
+        data.sort((a, b) => {
+            return b.idNote - a.idNote
+        });
 
         this.setState({notes: data});
     }
@@ -46,7 +48,9 @@ class App extends React.Component {
 
         const data = await api_url.json();
         this.state.notes.push(data);
-        this.state.notes.sort((a,b) => {return b.idNote - a.idNote});
+        this.state.notes.sort((a, b) => {
+            return b.idNote - a.idNote
+        });
 
         this.setState(this.state.notes);
 
@@ -56,17 +60,37 @@ class App extends React.Component {
     // удалить заметку
     // строка для тестирования:
     // fetch('http://127.0.0.1:8080/message/1', {method: 'DELETE', hearders: {'Content-Type': 'application/json'}}).then(result=>console.log(result))
-    deleteNote = async (e, id_note) => {
+    deleteNote = async (e, idNoteToDel) => {
         //  deleteNote(e) {
         // e.preventDefault();
-        console.log("delete ", this, e, id_note);
+        console.log("delete ", this, e, idNoteToDel);
 
-        const api_url = await fetch("http://127.0.0.1:8080/message/" + id_note,
+        const api_url = await fetch("http://127.0.0.1:8080/message/" + idNoteToDel,
             {
                 method: 'DELETE', cache: 'no-cache',
                 headers: {'Content-Type': 'application/json'}
             });
-        this.setState({notes: null});
+
+        //console.log("index" + index);
+        let notes = this.state.notes;
+
+        this.state.notes.forEach(function (item, index, array) {
+            console.log("index" + index + "; " + item.idNote);
+            if (item.idNote == idNoteToDel) {
+                console.log(" удалю index" + index + "; " + item.idNote);
+                 notes.splice(index, 1);
+            }
+
+
+        });
+
+        notes.forEach(function (item, index, array) {
+            console.log("index" + index + "; " + item.idNote);
+        });
+
+        this.setState(notes);
+
+        //this.setState({notes: null});
 //                const data =  api_url.json();
         //              console.log("after delete" + data);
     }
@@ -80,16 +104,17 @@ class App extends React.Component {
             <div>
                 <Info/>
                 <FormSearch weatherMethod={this.listOfNotes}/>
-                <AddNote noteAdd={this.addNote} valueTest={this.state.testValue} />
+                <AddNote noteAdd={this.addNote} valueTest={this.state.testValue}/>
 
                 <Edit/>
                 <Create/>
                 <Search/>
-                <Results notes={this.state.notes} deleteNote={this.deleteNote} />
+                <Results notes={this.state.notes} deleteNote={this.deleteNote}/>
             </div>
         )
     }
 
 }
+
 //deleteNote={this.deleteNote
 export default App;
