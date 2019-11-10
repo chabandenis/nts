@@ -7,6 +7,7 @@ import Create from "./components/create"
 import FormSearch from "./components/formSearch";
 import AddNote from "./components/addNote"
 
+
 class App extends React.Component {
 
     state = {
@@ -22,8 +23,6 @@ class App extends React.Component {
 
         this.setState({notes: data});
     }
-
-    //method: 'POST', // *GET, POST, PUT, DELETE, etc.
 
     // добавить заметку
     addNote = async (e) => {

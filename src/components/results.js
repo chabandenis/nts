@@ -1,5 +1,6 @@
 import React from "react";
 
+
 class Results extends React.Component {
 
     constructor(props) {
@@ -15,20 +16,31 @@ class Results extends React.Component {
         // e.preventDefault();
         console.log("delete ", this, e, id_note);
 
-                const api_url = await fetch("http://127.0.0.1:8080/message/"+ id_note,
-                    {
-                        method: 'DELETE', cache: 'no-cache',
-                        headers: {'Content-Type': 'application/json'}
-                    });
+        const api_url = await fetch("http://127.0.0.1:8080/message/" + id_note,
+            {
+                method: 'DELETE', cache: 'no-cache',
+                headers: {'Content-Type': 'application/json'}
+            });
 
 //                const data =  api_url.json();
-  //              console.log("after delete" + data);
+        //              console.log("after delete" + data);
     }
 
 //onClick={this.props.deleteNote()}
 
 
     render() {
+
+        let myStyle = {
+            color: 'red',
+            fontsize: "29"
+        }
+
+        let value;
+
+        const handleClick = (e) => {
+            prompt("введите значение", value)
+        }
 
         //  console.log("qq1q1 " + this.props.deleteNote());
 
@@ -44,12 +56,14 @@ class Results extends React.Component {
                     <div key={item.idNote}> {/* используем id в качестве ключа */}
 
                         <div>
-                            <p className="begin__note">======================================================================================================================</p>
-                            <p className="id__note">ID сообщения: {item.idNote}</p>
-                            <p className="data__note">Дата сообщения: {item.dateNote}</p>
-                            <p className="urgency__note">Важность: {item.urgencyNote}</p>
-                            <p className="text__note">Текст сообщения: {item.textNote}</p>
+                            <p>=====================================================================================================================</p>
+                            <p>ID сообщения: {item.idNote}</p>
+                            <p style={myStyle}>Дата сообщения: {item.dateNote}</p>
+                            <p>Важность: {item.urgencyNote}</p>
+                            <p>Текст сообщения: {item.textNote}</p>
 
+                            <input style={myStyle} type="text" name="city" value={item.textNote}
+                                   placeholder="Текст сообщения"/>
 
                             <button onClick={(e) => deleteNote(e, item.idNote)}>
                                 Удалить
@@ -59,34 +73,6 @@ class Results extends React.Component {
                             </button>
 
                         </div>
-                        /*
-
-                                            </div>
-                                        )
-                                    })
-                                } else {
-                                    notes = <div>Заметки отсутствуют</div>;
-                                }
-
-                                return (
-                                    <div>
-                                        {notes}
-                                    </div>
-                                );
-                            }
-                        }
-
-                        //                <button onClick={this.deleteNote}>привет </button>
-                        //{notes}
-                        /*                <form>
-                                            <input>
-                                                type="test"
-                                                placeholder = "E-mail"
-
-
-                                            </input>
-                                        </form>
-                                        */
 
                         export default Results;
 
