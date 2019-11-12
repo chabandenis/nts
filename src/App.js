@@ -84,10 +84,10 @@ class App extends React.Component {
 
     // редактировать заметку
     edtNote = async (e, userIdNote, userUrgencyNote, userTextNote) => {
-        console.log("добавим");
+        console.log("изменим ", userIdNote, userUrgencyNote, userTextNote);
         e.preventDefault();
         const bodyMsg = {idNote: userIdNote, dateNote: null, urgencyNote: userUrgencyNote, textNote: userTextNote};
-        const api_url = await fetch("http://127.0.0.1:8080/message/"+userIdNote,
+        const api_url = await fetch("http://127.0.0.1:8080/message/" + userIdNote,
             {
                 method: 'PUT', cache: 'no-cache',
                 headers: {'Content-Type': 'application/json'},
@@ -102,7 +102,7 @@ class App extends React.Component {
             //console.log("index" + index + "; " + item.idNote);
             if (item.idNote == userIdNote) {
                 //console.log(" удалю index" + index + "; " + item.idNote);
-                notes[index]  = data;
+                notes[index] = data;
             }
         });
 
