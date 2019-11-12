@@ -8,7 +8,7 @@ class Results extends React.Component {
 
         this.state = {
             userUrgencyNote: '',
-            userTextNote: '',
+            userTextNote: ''
         };
 
         this.handleUrgenncy = this.handleUrgenncy.bind(this)
@@ -19,13 +19,15 @@ class Results extends React.Component {
         console.log('form is submited');
     }
 
-    handleUrgenncy(e) {
-        console.log('urgency change', e.target.value);
+    handleUrgenncy(e, index) {
+        console.log('urgency change', e.target.value, index, this.props.notes[index].urgencyNote);
+        this.props.notes[index].urgencyNote = e.target.value;
         this.setState({userUrgencyNote: e.target.value})
     }
 
-    handleText(e) {
+    handleText(e, index) {
         console.log('urgency change', e.target.value);
+        this.props.notes[index].textNote = e.target.value;
         this.setState({userTextNote: e.target.value})
     }
 
@@ -74,33 +76,49 @@ class Results extends React.Component {
                             <p style={myStyle}>=====================================================================================================================</p>
                             <p style={myStyle}>ID сообщения: {item.idNote}</p>
                             <p style={myStyle}>Дата сообщения: {item.dateNote}</p>
-                            <p style={myStyle}>Важность: {item.urgencyNote}</p>
-                            <p style={myStyle}>Текст сообщения: {item.textNote}</p>
+                            {/*<p style={myStyle}>Важность: {item.urgencyNote}</p>}
+                                 <p style={myStyle}>Текст сообщения: {item.textNote}</p>*/}
 
 
                             <form onSubmit={handleSubmit}>
-                                <input style={{width: 80}} type="text" name="city"
-                                       value={item.urgencyNote||''}
-                                       onChange={handleUrgenncy}
-                                       placeholder="Важность"/>
-                                <input style={{width: 500}} type="text" name="city"
-                                       value={item.textNote ||''}
-                                       onChange={handleText}
-                                       placeholder="Текст сообщения"/>
+                                <div>
+                                    <label>
+                                        Важность:
+                                        <input style={{width: 80}} type="text" name="city"
+                                               value={item.urgencyNote || ''}
+                                               onChange={(e) => {
+                                                   handleUrgenncy(e, index)
+                                               }}
+                                        />
+                                    </label>
+                                </div>
+                                <div>
+                                    <label>
+                                        Текст сообщения:
+                                        <input style={{width: 500}} type="text" name="city"
+                                               value={item.textNote || ''}
+                                               onChange={(e) => {
+                                                   handleText(e, index)
+                                               }}
+                                        />
+                                    </label>
+                                </div>
                                 <button
-                                    onClick={(e) => edtNote(e, item.idNote, userUrgencyNote, userTestNote)}>Применить
+                                    onClick={(e) => edtNote(e, item.idNote, item.urgencyNote, item.textNote)}>Обновить
                                 </button>
+                                <button onClick={(e) => deleteNote(e, item.idNote)}>
+                                    Удалить
+                                </button>
+
                             </form>
 
-                            <button onClick={(e) => deleteNote(e, item.idNote)}>
-                                Удалить
-                            </button>
-                            <button onClick={() => {
+
+                            {/*<button onClick={() => {
                                 inputValue = true
                             }}>
                                 Изменить
                             </button>
-
+                            */}
                         </div>
                     </div>
                 )

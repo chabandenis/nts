@@ -54,7 +54,7 @@ class App extends React.Component {
     // fetch('http://127.0.0.1:8080/message/1', {method: 'DELETE', hearders: {'Content-Type': 'application/json'}}).then(result=>console.log(result))
     deleteNote = async (e, idNoteToDel) => {
         //  deleteNote(e) {
-        // e.preventDefault();
+        e.preventDefault();
         console.log("delete ", this, e, idNoteToDel);
 
         const api_url = await fetch("http://127.0.0.1:8080/message/" + idNoteToDel,
