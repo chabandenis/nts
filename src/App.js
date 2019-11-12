@@ -11,15 +11,9 @@ import AddNote from "./components/addNote"
 class App extends React.Component {
 
     state = {
-        notes: [],
-        testValue: "значение 1"
+        notes: []
     }
 
-    // modify
-    /*    modify = (e) =>{
-            this.setState({testValue:"wwwww""});
-        }
-    */
     // список заметок
     listOfNotes = async (e) => {
         e.preventDefault();
@@ -53,8 +47,6 @@ class App extends React.Component {
         });
 
         this.setState(this.state.notes);
-
-//        this.setState({notes: [data]});
     }
 
     // удалить заметку
@@ -75,13 +67,11 @@ class App extends React.Component {
         let notes = this.state.notes;
 
         this.state.notes.forEach(function (item, index, array) {
-            console.log("index" + index + "; " + item.idNote);
+            //console.log("index" + index + "; " + item.idNote);
             if (item.idNote == idNoteToDel) {
-                console.log(" удалю index" + index + "; " + item.idNote);
-                 notes.splice(index, 1);
+                //console.log(" удалю index" + index + "; " + item.idNote);
+                notes.splice(index, 1);
             }
-
-
         });
 
         notes.forEach(function (item, index, array) {
@@ -90,9 +80,33 @@ class App extends React.Component {
 
         this.setState(notes);
 
-        //this.setState({notes: null});
-//                const data =  api_url.json();
-        //              console.log("after delete" + data);
+    }
+
+    // редактировать заметку
+    edtNote = async (e, userIdNote, userUrgencyNote, userTextNote) => {
+        console.log("добавим");
+        e.preventDefault();
+        const bodyMsg = {idNote: userIdNote, dateNote: null, urgencyNote: userUrgencyNote, textNote: userTextNote};
+        const api_url = await fetch("http://127.0.0.1:8080/message/"+userIdNote,
+            {
+                method: 'PUT', cache: 'no-cache',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(bodyMsg)
+            });
+
+        const data = await api_url.json();
+
+        let notes = this.state.notes;
+
+        this.state.notes.forEach(function (item, index) {
+            //console.log("index" + index + "; " + item.idNote);
+            if (item.idNote == userIdNote) {
+                //console.log(" удалю index" + index + "; " + item.idNote);
+                notes[index]  = data;
+            }
+        });
+
+        this.setState(this.state.notes);
     }
 
     render() {
@@ -104,12 +118,15 @@ class App extends React.Component {
             <div>
                 <Info/>
                 <FormSearch weatherMethod={this.listOfNotes}/>
-                <AddNote noteAdd={this.addNote} valueTest={this.state.testValue}/>
+                <AddNote noteAdd={this.addNote}/>
 
                 <Edit/>
                 <Create/>
                 <Search/>
-                <Results notes={this.state.notes} deleteNote={this.deleteNote}/>
+                <Results notes={this.state.notes}
+                         deleteNote={this.deleteNote}
+                         edtNote={this.edtNote}
+                />
             </div>
         )
     }

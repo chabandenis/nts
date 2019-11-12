@@ -13,8 +13,10 @@ class Results extends React.Component {
     render() {
 
         let myStyle = {
-            color: 'red',
-            fontsize: "29"
+            fontSize: 13,
+            color: 'black',
+            background: "LightCyan",
+            margin: 0
         }
 
         let value;
@@ -23,13 +25,12 @@ class Results extends React.Component {
             prompt("введите значение", value)
         }
 
-        //  console.log("qq1q1 " + this.props.deleteNote());
-
         let notes = null;
         //  <button>Редактировать</button>
         if (this.props.notes) {
             let props = this.props;
             let deleteNote = this.props.deleteNote;
+            let edtNote = this.props.edtNote;
 
             notes = this.props.notes.map(function (item, index) {
 //                notes = (props) => this.props.notes.map(function (item, index) {
@@ -37,19 +38,25 @@ class Results extends React.Component {
                     <div key={item.idNote}> {/* используем id в качестве ключа */}
 
                         <div>
-                            <p>=====================================================================================================================</p>
-                            <p>ID сообщения: {item.idNote}</p>
+                            <p style={myStyle}>=====================================================================================================================</p>
+                            <p style={myStyle}>ID сообщения: {item.idNote}</p>
                             <p style={myStyle}>Дата сообщения: {item.dateNote}</p>
-                            <p>Важность: {item.urgencyNote}</p>
-                            <p>Текст сообщения: {item.textNote}</p>
+                            <p style={myStyle}>Важность: {item.urgencyNote}</p>
+                            <p style={myStyle}>Текст сообщения: {item.textNote}</p>
 
-                            {/*                            <input style={myStyle} type="text" name="city" value={item.textNote}
-                                   placeholder="Текст сообщения"/>
-*/}
+
+                            <form className="text__note">
+                                <input style={{width: 80}} type="text" name="city" value={item.urgencyNote}
+                                       placeholder="Важность"/>
+                                <input style={{width: 500}} type="text" name="city" value={item.textNote}
+                                       placeholder="Текст сообщения"/>
+                                <button onClick={(e) => edtNote(e, item.idNote, 2, 3)}>Применить</button>
+                            </form>
+
                             <button onClick={(e) => deleteNote(e, item.idNote)}>
                                 Удалить
                             </button>
-                            <button onClick={(e) => deleteNote(e, item.idNote)}>
+                            <button >
                                 Изменить
                             </button>
 
