@@ -68,14 +68,16 @@ class Results extends React.Component {
             userTestNote = this.state.userTextNote;
 
             notes = this.props.notes.map(function (item, index) {
-//                notes = (props) => this.props.notes.map(function (item, index) {
+
+                let parsDt2 =new Date(Date.parse(item.dateNote));
+
                 return (
                     <div key={item.id}> {/* используем id в качестве ключа */}
 
                         <div>
                             <p style={myStyle}>=====================================================================================================================</p>
                             <p style={myStyle}>ID сообщения: {item.id}</p>
-                            <p style={myStyle}>Дата сообщения: {item.dateNote}</p>
+                            <p style={myStyle}>Дата сообщения: {parsDt2.toLocaleDateString() + " " + parsDt2.toLocaleTimeString()}</p>
                             {/*<p style={myStyle}>Важность: {item.urgencyNote}</p>}
                                  <p style={myStyle}>Текст сообщения: {item.textNote}</p>*/}
 
@@ -112,13 +114,6 @@ class Results extends React.Component {
 
                             </form>
 
-
-                            {/*<button onClick={() => {
-                                inputValue = true
-                            }}>
-                                Изменить
-                            </button>
-                            */}
                         </div>
                     </div>
                 )

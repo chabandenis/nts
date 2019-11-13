@@ -15,10 +15,11 @@ class App extends React.Component {
     }
 
     // список заметок
-    listOfNotes = async (e) => {
+    listOfNotes = async (e, filtrTextNote) => {
         e.preventDefault();
-        const ddd = e.target.city.value;
-        const api_url = await fetch(`http://127.0.0.1:8080/message`, {cache: 'no-cache'});
+        console.log("filterTextNote", filtrTextNote);
+        const api_url = await fetch("http://127.0.0.1:8080/message?textNote=" + encodeURI(filtrTextNote),
+            {cache: 'no-cache'});
         const data = await api_url.json();
 
         data.sort((a, b) => {
@@ -32,7 +33,14 @@ class App extends React.Component {
     addNote = async (e) => {
         console.log("добавим");
         e.preventDefault();
-        const bodyMsg = {dateNote: "", urgencyNote: "", textNote: ""};
+        // dt.toLocaleDateString() + " " + dt.toLocaleTimeString()
+        //let dt = new Date();
+        //dateNote: dt,
+        const bodyMsg = {
+
+            urgencyNote: "",
+            textNote: ""
+        };
         const api_url = await fetch(`http://127.0.0.1:8080/message`,
             {
                 method: 'POST', cache: 'no-cache',
@@ -117,7 +125,7 @@ class App extends React.Component {
         return (
             <div>
                 <Info/>
-                <FormSearch weatherMethod={this.listOfNotes}/>
+                <FormSearch listOfNotes={this.listOfNotes}/>
                 <AddNote noteAdd={this.addNote}/>
 
                 <Edit/>
