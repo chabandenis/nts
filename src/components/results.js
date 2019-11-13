@@ -106,7 +106,7 @@ class Results extends React.Component {
                                     </label>
                                 </div>
                                 <button
-                                    onClick={(e) => edtNote(e, item.id, item.urgencyNote, item.textNote)}>Обновить
+                                    onClick={(e) => edtNote(e, item.id, item.urgencyNote, item.textNote, item.dateNote)}>Обновить
                                 </button>
                                 <button onClick={(e) => deleteNote(e, item.id)}>
                                     Удалить

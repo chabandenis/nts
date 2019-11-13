@@ -91,10 +91,10 @@ class App extends React.Component {
     }
 
     // редактировать заметку
-    edtNote = async (e, userIdNote, userUrgencyNote, userTextNote) => {
+    edtNote = async (e, userIdNote, userUrgencyNote, userTextNote, userDateNote) => {
         console.log("изменим ", userIdNote, userUrgencyNote, userTextNote);
         e.preventDefault();
-        const bodyMsg = {id: userIdNote, dateNote: null, urgencyNote: userUrgencyNote, textNote: userTextNote};
+        const bodyMsg = {id: userIdNote, dateNote: userDateNote, urgencyNote: userUrgencyNote, textNote: userTextNote};
         const api_url = await fetch("http://127.0.0.1:8080/message/" + userIdNote,
             {
                 method: 'PUT', cache: 'no-cache',
