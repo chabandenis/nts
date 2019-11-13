@@ -82,7 +82,7 @@ class Results extends React.Component {
 
                             <form onSubmit={handleSubmit}>
                                 <div>
-                                    <label>
+                                    <label style={myStyle}>
                                         Важность:
                                         <input style={{width: 80}} type="text" name="city"
                                                value={item.urgencyNote || ''}
@@ -93,7 +93,7 @@ class Results extends React.Component {
                                     </label>
                                 </div>
                                 <div>
-                                    <label>
+                                    <label style={myStyle}>
                                         Текст сообщения:
                                         <input style={{width: 500}} type="text" name="city"
                                                value={item.textNote || ''}

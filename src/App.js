@@ -32,7 +32,7 @@ class App extends React.Component {
     addNote = async (e) => {
         console.log("добавим");
         e.preventDefault();
-        const bodyMsg = {idNote: 40, dateNote: null, urgencyNote: null, textNote: null};
+        const bodyMsg = {id: 40, dateNote: null, urgencyNote: null, textNote: null};
         const api_url = await fetch(`http://127.0.0.1:8080/message`,
             {
                 method: 'POST', cache: 'no-cache',
