@@ -22,7 +22,7 @@ class App extends React.Component {
         const data = await api_url.json();
 
         data.sort((a, b) => {
-            return b.idNote - a.idNote
+            return b.id - a.id
         });
 
         this.setState({notes: data});
@@ -32,7 +32,7 @@ class App extends React.Component {
     addNote = async (e) => {
         console.log("добавим");
         e.preventDefault();
-        const bodyMsg = {id: 40, dateNote: null, urgencyNote: null, textNote: null};
+        const bodyMsg = {dateNote: "", urgencyNote: "", textNote: ""};
         const api_url = await fetch(`http://127.0.0.1:8080/message`,
             {
                 method: 'POST', cache: 'no-cache',
@@ -43,7 +43,7 @@ class App extends React.Component {
         const data = await api_url.json();
         this.state.notes.push(data);
         this.state.notes.sort((a, b) => {
-            return b.idNote - a.idNote
+            return b.id - a.id
         });
 
         this.setState(this.state.notes);
@@ -67,15 +67,15 @@ class App extends React.Component {
         let notes = this.state.notes;
 
         this.state.notes.forEach(function (item, index, array) {
-            //console.log("index" + index + "; " + item.idNote);
-            if (item.idNote == idNoteToDel) {
-                //console.log(" удалю index" + index + "; " + item.idNote);
+            //console.log("index" + index + "; " + item.id);
+            if (item.id == idNoteToDel) {
+                //console.log(" удалю index" + index + "; " + item.id);
                 notes.splice(index, 1);
             }
         });
 
         notes.forEach(function (item, index, array) {
-            console.log("index" + index + "; " + item.idNote);
+            console.log("index" + index + "; " + item.id);
         });
 
         this.setState(notes);
@@ -86,7 +86,7 @@ class App extends React.Component {
     edtNote = async (e, userIdNote, userUrgencyNote, userTextNote) => {
         console.log("изменим ", userIdNote, userUrgencyNote, userTextNote);
         e.preventDefault();
-        const bodyMsg = {idNote: userIdNote, dateNote: null, urgencyNote: userUrgencyNote, textNote: userTextNote};
+        const bodyMsg = {id: userIdNote, dateNote: null, urgencyNote: userUrgencyNote, textNote: userTextNote};
         const api_url = await fetch("http://127.0.0.1:8080/message/" + userIdNote,
             {
                 method: 'PUT', cache: 'no-cache',
@@ -99,9 +99,9 @@ class App extends React.Component {
         let notes = this.state.notes;
 
         this.state.notes.forEach(function (item, index) {
-            //console.log("index" + index + "; " + item.idNote);
-            if (item.idNote == userIdNote) {
-                //console.log(" удалю index" + index + "; " + item.idNote);
+            //console.log("index" + index + "; " + item.id);
+            if (item.id == userIdNote) {
+                //console.log(" удалю index" + index + "; " + item.id);
                 notes[index] = data;
             }
         });
@@ -133,5 +133,4 @@ class App extends React.Component {
 
 }
 
-//deleteNote={this.deleteNote
 export default App;

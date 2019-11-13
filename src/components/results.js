@@ -70,11 +70,11 @@ class Results extends React.Component {
             notes = this.props.notes.map(function (item, index) {
 //                notes = (props) => this.props.notes.map(function (item, index) {
                 return (
-                    <div key={item.idNote}> {/* используем id в качестве ключа */}
+                    <div key={item.id}> {/* используем id в качестве ключа */}
 
                         <div>
                             <p style={myStyle}>=====================================================================================================================</p>
-                            <p style={myStyle}>ID сообщения: {item.idNote}</p>
+                            <p style={myStyle}>ID сообщения: {item.id}</p>
                             <p style={myStyle}>Дата сообщения: {item.dateNote}</p>
                             {/*<p style={myStyle}>Важность: {item.urgencyNote}</p>}
                                  <p style={myStyle}>Текст сообщения: {item.textNote}</p>*/}
@@ -104,9 +104,9 @@ class Results extends React.Component {
                                     </label>
                                 </div>
                                 <button
-                                    onClick={(e) => edtNote(e, item.idNote, item.urgencyNote, item.textNote)}>Обновить
+                                    onClick={(e) => edtNote(e, item.id, item.urgencyNote, item.textNote)}>Обновить
                                 </button>
-                                <button onClick={(e) => deleteNote(e, item.idNote)}>
+                                <button onClick={(e) => deleteNote(e, item.id)}>
                                     Удалить
                                 </button>
 
